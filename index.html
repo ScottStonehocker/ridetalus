@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="TALUS: the first purpose-built barefoot flat-pedal mountain bike shoe. Wide toe box, zero drop, about 8 mm of stack, real pedal rubber. Join the first run.">
+<meta property="og:title" content="TALUS — barefoot flat-pedal MTB shoe">
+<meta property="og:description" content="Wide toe box. Zero drop. About 8 mm of stack. Real pedal rubber. Join the first run.">
+<meta property="og:image" content="img/og.jpg">
+<script>/* CONFIG: set ONE of these before launch */
+window.TALUS_FORM_ENDPOINT = "";   // e.g. "https://formspree.io/f/xxxxxxx"
+window.TALUS_WEB3FORMS_KEY = "42462bbc-ed72-4e61-90b2-2ad84c7642d5";   // or a web3forms.com access key
+window.TALUS_RESERVE_URL = "https://wulfwool.com/cart/67605768863834:1";     // $10 reservation: Shopify cart permalink "https://wulfwool.com/cart/<variant_id>:1" (or a Stripe Payment Link). Card hidden while empty.
+</script>
+</head>
+<body>
+<title>TALUS Barefoot MTB</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap">
+<style>
+/* Layout: one-column launch page. Dark field like the ads; a split hero (claim left, the studio render cut out on the dark field right; no on-person imagery), a short problem/answer, four spec tiles, a zoomed crop of the same render with callouts, then the sign-up form as the only bright surface on the page. Bone text, gold for emphasis and the one button, dark green as the quiet second accent. Dark-first by design; a light theme is defined for viewers who force it. */
+:root {
+  --bg:#0e0f0f; --bg2:#161817; --fg:#ecebe5; --muted:#a9a89f; --line:#2b2e2c;
+  --gold:#c9a35a; --gold-d:#a8843f; --green:#4a5a3f; --green-l:#8ea577;
+  --field:#1c1f1d; --field-b:#3a3e3b; --ok:#8ea577; --err:#d98a6c;
+  --display:'Barlow Condensed','Arial Narrow',sans-serif; --body:'Barlow','Helvetica Neue',Arial,sans-serif;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) {
+  --bg:#f1efe8; --bg2:#e7e4da; --fg:#15171a; --muted:#5a5d57; --line:#d3d0c4;
+  --gold:#8a6a2c; --gold-d:#6f551f; --green:#3f5236; --green-l:#4e6540;
+  --field:#fbfaf6; --field-b:#c9c6b9; --ok:#4e6540; --err:#a9532f; color-scheme: light } }
+:root[data-theme="light"] {
+  --bg:#f1efe8; --bg2:#e7e4da; --fg:#15171a; --muted:#5a5d57; --line:#d3d0c4;
+  --gold:#8a6a2c; --gold-d:#6f551f; --green:#3f5236; --green-l:#4e6540;
+  --field:#fbfaf6; --field-b:#c9c6b9; --ok:#4e6540; --err:#a9532f; color-scheme: light }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font-family:var(--body); font-size:18px; line-height:1.5; padding-inline:20px; padding-block:0 72px; -webkit-font-smoothing:antialiased; }
+img { max-width:100%; height:auto; display:block; }
+h1,h2,h3 { font-family:var(--display); font-weight:700; text-transform:uppercase; line-height:.98; letter-spacing:.005em; margin:0; text-wrap:balance; }
+h1 { font-size:clamp(52px,9vw,112px); }
+h2 { font-size:clamp(36px,5vw,60px); }
+h3 { font-size:26px; }
+p { margin:0; }
+a { color:var(--gold); }
+.wrap { max-width:1120px; margin:0 auto; }
+.eyebrow { font-family:var(--display); font-weight:600; font-size:15px; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); }
+.wm { font-family:var(--display); font-weight:800; font-size:26px; letter-spacing:.34em; text-transform:uppercase; }
+.wm i { font-style:normal; color:var(--gold); }
+.btn { display:inline-block; font-family:var(--display); font-weight:700; font-size:20px; letter-spacing:.14em; text-transform:uppercase; padding:16px 28px 14px; border-radius:4px; background:var(--gold); color:#0e0f0f; text-decoration:none; border:0; cursor:pointer; }
+.btn:hover { background:var(--gold-d); }
+.btn:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline:3px solid var(--gold); outline-offset:2px; }
+.badge { display:inline-block; font-family:var(--display); font-weight:600; font-size:13px; letter-spacing:.2em; text-transform:uppercase; padding:6px 10px 4px; border:1px solid var(--line); color:var(--muted); border-radius:3px; }
+
+nav { display:flex; justify-content:space-between; align-items:center; padding-block:26px; gap:16px; }
+nav a.small { font-family:var(--display); font-weight:600; font-size:15px; letter-spacing:.2em; text-transform:uppercase; color:var(--fg); text-decoration:none; }
+
+.hero { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:40px; align-items:center; padding-block:24px 56px; }
+.hero .copy { display:flex; flex-direction:column; gap:22px; }
+.hero .sub { font-size:22px; color:var(--muted); max-width:34ch; }
+.hero .cta { display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
+.hero .img { position:relative; min-width:0; display:flex; flex-direction:column; align-items:center; gap:14px; }
+.hero .img img { width:100%; filter:drop-shadow(0 30px 40px rgba(0,0,0,.55)); background:radial-gradient(ellipse 70% 55% at 50% 60%, rgba(201,163,90,.14), transparent 70%); }
+.hero .img .badge { align-self:flex-start; }
+
+.band { border-top:1px solid var(--line); padding-block:56px; display:flex; flex-direction:column; gap:28px; }
+.two { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:36px; }
+.two p { color:var(--muted); font-size:19px; max-width:58ch; }
+.two p b { color:var(--fg); }
+
+.specs { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; }
+.spec { background:var(--bg2); padding:22px 22px 20px; display:flex; flex-direction:column; gap:8px; border-top:3px solid var(--gold); min-width:0; }
+.spec b { font-family:var(--display); font-size:40px; line-height:1; font-weight:700; text-transform:uppercase; font-variant-numeric:tabular-nums; }
+.spec span { color:var(--muted); font-size:16px; }
+
+.detail { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:40px; align-items:center; }
+.detail .crop { overflow:hidden; border-radius:6px; aspect-ratio:1; background:var(--bg2); min-width:0; }
+.detail .crop img { width:190%; max-width:none; margin:-2% 0 0 -12%; }
+.points { display:flex; flex-direction:column; gap:18px; }
+.point { display:grid; grid-template-columns:14px 1fr; gap:14px; align-items:start; }
+.point::before { content:""; width:12px; height:12px; border-radius:50%; background:var(--gold); margin-top:9px; box-shadow:0 0 0 5px rgba(201,163,90,.18); }
+.point b { font-family:var(--display); font-size:24px; text-transform:uppercase; letter-spacing:.04em; display:block; }
+.point span { color:var(--muted); font-size:17px; }
+
+.compare { overflow-x:auto; }
+table { border-collapse:collapse; width:100%; min-width:520px; font-size:17px; font-variant-numeric:tabular-nums; }
+th,td { text-align:left; padding:14px 12px; border-bottom:1px solid var(--line); }
+th { font-family:var(--display); font-weight:600; font-size:14px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); }
+th.us, td.us { color:var(--gold); font-weight:600; }
+
+/* form */
+.signup { background:var(--bg2); border:1px solid var(--line); border-radius:8px; padding:36px 28px; display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:36px; }
+.signup .lead { display:flex; flex-direction:column; gap:14px; }
+.signup .lead p { color:var(--muted); font-size:17px; }
+.signup .lead ul { margin:0; padding-left:18px; color:var(--muted); font-size:16px; display:flex; flex-direction:column; gap:6px; }
+form { display:flex; flex-direction:column; gap:22px; min-width:0; }
+fieldset { border:0; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; min-width:0; }
+legend, label.l { font-family:var(--display); font-weight:600; font-size:15px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); padding:0; margin-bottom:6px; display:block; }
+legend small, label.l small { text-transform:none; letter-spacing:0; font-family:var(--body); font-weight:400; color:var(--muted); }
+.row { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; }
+input[type=text], input[type=email], input[type=number], select, textarea { width:100%; font:inherit; font-size:17px; color:var(--fg); background:var(--field); border:1px solid var(--field-b); border-radius:4px; padding:12px 14px; min-width:0; }
+textarea { min-height:80px; resize:vertical; }
+.chips { display:flex; flex-wrap:wrap; gap:8px; }
+.chips label { position:relative; }
+.chips input { position:absolute; opacity:0; inset:0; }
+.chips span { display:inline-block; padding:10px 14px 8px; border:1px solid var(--field-b); border-radius:4px; font-family:var(--display); font-weight:600; font-size:17px; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; background:var(--field); }
+.chips input:checked + span { background:var(--gold); color:#0e0f0f; border-color:var(--gold); }
+.chips input:focus-visible + span { outline:3px solid var(--gold); outline-offset:2px; }
+.help { font-size:14px; color:var(--muted); }
+.submit { display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+.fine { font-size:13px; color:var(--muted); }
+.msg { font-size:16px; padding:12px 14px; border-radius:4px; border:1px solid var(--line); }
+.msg.err { color:var(--err); border-color:var(--err); }
+.msg.ok { color:var(--ok); border-color:var(--ok); }
+.price { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+.price b { font-family:var(--display); font-size:44px; font-weight:700; line-height:1; color:var(--gold); font-variant-numeric:tabular-nums; }
+.price span { color:var(--muted); font-size:16px; max-width:38ch; }
+.thanks { display:none; flex-direction:column; gap:28px; grid-column:1 / -1; }
+.thanks h3 { font-size:40px; }
+.thanks p { color:var(--muted); }
+.thanks .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:28px; align-items:start; }
+.thanks .step { background:var(--bg); border:1px solid var(--line); border-radius:6px; padding:24px 22px; display:flex; flex-direction:column; gap:14px; }
+.thanks .step h4 { font-family:var(--display); font-weight:700; font-size:26px; text-transform:uppercase; margin:0; line-height:1; }
+.thanks .step p { font-size:16px; }
+.thanks .step form { gap:16px; }
+.thanks .step .btn { align-self:flex-start; }
+.thanks .step[hidden] { display:none; }
+.signup.done form#f, .signup.done .lead { display:none; } .signup.done .thanks { display:flex; }
+
+footer { border-top:1px solid var(--line); padding-top:28px; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; color:var(--muted); font-size:14px; }
+footer .wm { font-size:20px; }
+
+@media (max-width:820px) {
+  .hero { grid-template-columns:1fr; gap:26px; padding-block:8px 44px; }
+  .hero .img { order:-1; }
+  .detail { grid-template-columns:1fr; }
+  .signup { grid-template-columns:1fr; padding:26px 18px; }
+}
+@media (prefers-reduced-motion: no-preference) { .btn { transition: background .15s; } }
+</style>
+
+<div class="wrap">
+<nav>
+  <div class="wm">Talus<i>.</i></div>
+  <a class="small" href="#join">Join the first run</a>
+</nav>
+
+<section class="hero">
+  <div class="copy">
+    <div class="eyebrow">Barefoot · Flat pedal · Mountain bike</div>
+    <h1>Feel the pedal. Keep the grip.</h1>
+    <p class="sub">The first purpose-built barefoot flat-pedal MTB shoe. Wide toe box, zero drop, about 8 mm of stack and real pedal rubber. The first run is small and we're building it for the people on this list.</p>
+    <div class="price"><b>$170</b><span>First-run price. Pre-production design, no ship date yet. <span class="needs-reserve">Reserve a pair for $10, refundable any time.</span></span></div>
+    <div class="cta"><a class="btn" href="#join">Join the first run</a><span class="help">Email and size. Nothing to pay to join.</span></div>
+  </div>
+  <div class="img"><img src="img/shoe.png" width="1023" height="765" alt="TALUS barefoot flat-pedal MTB shoe, lateral view, concept render" fetchpriority="high"><span class="badge">Concept render · pre-production design</span></div>
+</section>
+
+<section class="band">
+  <div class="two">
+    <div>
+      <div class="eyebrow">The problem</div>
+      <h2 style="margin-top:10px">Your riding shoes are the wrong shape.</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <p>Nearly every flat-pedal shoe is built on a tapered last with a stiff midsole and 18 to 22 mm of foam under your heel. <b>Toes get pinned together, feet go numb on long descents, and you feel the shoe instead of the pedal.</b></p>
+      <p>Barefoot shoes fixed the shape years ago, but they weren't built for pedals: no rubber that grips pins, no protection for rock gardens. <b>TALUS is the shoe that does both.</b></p>
+    </div>
+  </div>
+  <div class="specs">
+    <div class="spec"><b>0 mm</b><span>Heel-to-toe drop. Your foot sits flat, the way it stands.</span></div>
+    <div class="spec"><b>~8 mm</b><span>Total stack. 2–3 mm EVA over a thin high-carbon rubber outsole.</span></div>
+    <div class="spec"><b>Wide</b><span>Anatomical toe box. Toes splay for balance and blood flow.</span></div>
+    <div class="spec"><b>Sticky</b><span>High-carbon pedal rubber on a flexible sole that wraps the pins.</span></div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="detail">
+    <div class="crop"><img src="img/shoe.png" width="1023" height="765" alt="Close-up of the TALUS knit collar, quick-lace and textured upper, concept render" loading="lazy"></div>
+    <div class="points">
+      <div class="eyebrow">What's on it</div>
+      <div class="point"><div><b>Knit sock collar</b><span>Keeps gravel and grit out of the shoe. Gold trim, green chevron.</span></div></div>
+      <div class="point"><div><b>Gravel Shield</b><span>Closed inner side in textured TPU, where rocks and crank arms hit.</span></div></div>
+      <div class="point"><div><b>Quick-lace with keeper</b><span>One pull. Nothing flapping near the chainring.</span></div></div>
+      <div class="point"><div><b>Ripstop mesh panels</b><span>Breathable where you don't need armor.</span></div></div>
+      <div class="point"><div><b>TPU heel counter + reflective strip</b><span>Locks the heel in place. The strip catches headlights on the road home.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="eyebrow">By the numbers</div>
+  <div class="compare"><table>
+    <tr><th></th><th>Typical flat-pedal shoe</th><th>Barefoot trail shoe</th><th class="us">Talus</th></tr>
+    <tr><td>Heel-to-toe drop</td><td>6–8 mm</td><td>0 mm</td><td class="us">0 mm</td></tr>
+    <tr><td>Stack height</td><td>18–22 mm</td><td>6–12 mm</td><td class="us">~8 mm</td></tr>
+    <tr><td>Toe box</td><td>Narrow, tapered</td><td>Foot-shaped</td><td class="us">Foot-shaped</td></tr>
+    <tr><td>Pedal-grip rubber</td><td>Yes</td><td>No</td><td class="us">Yes</td></tr>
+    <tr><td>Debris protection</td><td>Yes</td><td>No</td><td class="us">Yes</td></tr>
+  </table></div>
+  <p class="help">Competitor figures are typical published or measured values for the category, not for any one model.</p>
+</section>
+
+<section class="band" id="join">
+  <div class="signup" id="signup">
+    <div class="lead">
+      <div class="eyebrow">First run</div>
+      <h2>Join the list</h2>
+      <p>Your email and your size. The first production run is sized from this list, so your size decides what gets made.</p>
+      <ul>
+        <li>First look at the sample, before anyone else</li>
+        <li>Priority on the first run at $170</li>
+        <li class="needs-reserve">Option to hold a pair with a $10 refundable reservation</li>
+        <li>No spam. A handful of emails as the shoe comes together.</li>
+      </ul>
+    </div>
+
+    <form id="f" novalidate>
+      <div><label class="l" for="email">Email <small>(required)</small></label><input type="email" id="email" name="email" autocomplete="email" required placeholder="you@example.com"></div>
+
+      <fieldset>
+        <legend>Your size <small>(required)</small></legend>
+        <div class="row">
+          <div><label class="l" for="sys">Sizing system</label><select id="sys" name="size_system"><option value="us_m">US Men's</option><option value="us_w">US Women's</option><option value="eu">EU</option></select></div>
+          <div><label class="l" for="size">Size</label><select id="size" name="size" required></select></div>
+        </div>
+        <p class="help">Your usual size in a wide or barefoot shoe. You can add a foot measurement on the next step.</p>
+      </fieldset>
+
+      <input type="text" name="_gotcha" id="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+
+      <div class="submit">
+        <button class="btn" type="submit" id="go">Join the first run</button>
+        <span class="fine">We'll only email you about TALUS. Unsubscribe any time.</span>
+      </div>
+      <div class="msg" id="msg" hidden></div>
+    </form>
+
+    <div class="thanks" id="thanks">
+      <div>
+        <div class="eyebrow">You're on the list</div>
+        <h3>Thanks. We'll build your size.</h3>
+        <p>Two optional things, both quick. Either one helps us decide how many pairs to make.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step" id="reserve" hidden>
+          <h4>Hold a pair · $10</h4>
+          <p>A $10 reservation holds a pair in your size on the first run at $170, and comes off the price when you buy. <b>Fully refundable at any time, no questions asked.</b> If there is no production sample by <span id="refund-date">30 June 2027</span>, every reservation is refunded automatically.</p>
+          <a class="btn" id="reserve-btn" href="#" rel="noopener">Reserve my size · $10</a>
+          <p class="fine">Checkout runs on wulfwool.com, our other brand, so your statement will show Wülf Wool. A reservation is not a purchase; we'll ask before charging anything else.</p>
+        </div>
+
+        <div class="step" id="profile-step">
+          <h4>Tell us about your feet</h4>
+          <p>This sizes the first run. Takes a minute, all optional.</p>
+          <form id="p" novalidate>
+            <div><label class="l" for="len">Foot length, mm <small>(stand on paper, mark heel and longest toe, measure)</small></label><input type="number" id="len" name="foot_length_mm" min="200" max="330" step="1" inputmode="numeric" placeholder="e.g. 275"></div>
+            <fieldset>
+              <legend>Foot width</legend>
+              <div class="chips">
+                <label><input type="radio" name="width" value="standard"><span>Standard</span></label>
+                <label><input type="radio" name="width" value="wide"><span>Wide</span></label>
+                <label><input type="radio" name="width" value="extra_wide"><span>Extra wide</span></label>
+                <label><input type="radio" name="width" value="unsure"><span>Not sure</span></label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Pedals you ride</legend>
+              <div class="chips">
+                <label><input type="radio" name="pedals" value="flats"><span>Flats</span></label>
+                <label><input type="radio" name="pedals" value="clipless"><span>Clipless</span></label>
+                <label><input type="radio" name="pedals" value="both"><span>Both</span></label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Barefoot shoes today?</legend>
+              <div class="chips">
+                <label><input type="radio" name="barefoot" value="daily"><span>Wear them daily</span></label>
+                <label><input type="radio" name="barefoot" value="some"><span>Some</span></label>
+                <label><input type="radio" name="barefoot" value="never"><span>Never tried</span></label>
+              </div>
+            </fieldset>
+            <div><label class="l" for="notes">Anything else? <small>(optional)</small></label><textarea id="notes" name="notes" placeholder="Where you ride, what you wear now, what would make you buy."></textarea></div>
+            <div class="submit">
+              <button class="btn" type="submit" id="pgo">Save</button>
+            </div>
+            <div class="msg" id="pmsg" hidden></div>
+          </form>
+          <p class="help" id="pdone" hidden>Saved. Thank you.</p>
+        </div>
+      </div>
+
+      <p>Know a rider with sore feet? <a href="#" id="share">Copy this page's link</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wm">Talus<i>.</i></div>
+  <div>Built on Talus · Fort Collins, Colorado · Images are concept renders of a pre-production design.</div>
+</footer>
+</div>
+
+<!-- META PIXEL: paste the Meta base code here before running ads. The submit handler below calls fbq('track','Lead') when it exists. -->
+
+<script>
+(function(){
+  // ---- CONFIG ----------------------------------------------------------
+  // Form endpoint that accepts a JSON POST (Formspree, Web3Forms, Basin, Getform...). Leave empty until one is set up.
+  var ENDPOINT = window.TALUS_FORM_ENDPOINT || '';
+  var WEB3FORMS_KEY = window.TALUS_WEB3FORMS_KEY || '';   // if using web3forms.com, put the access key here and leave ENDPOINT empty
+  // $10 reservation checkout. Either a Shopify cart permalink (https://wulfwool.com/cart/<variant_id>:1) or a Stripe Payment Link.
+  // The reservation card stays hidden while this is empty.
+  var RESERVE_URL = window.TALUS_RESERVE_URL || '';
+  if (!RESERVE_URL) Array.prototype.forEach.call(document.querySelectorAll('.needs-reserve'), function(el){ el.hidden = true; });
+  // ----------------------------------------------------------------------
+
+  var SIZES = {
+    us_m: ['6','6.5','7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','12.5','13','14','15'],
+    us_w: ['5','5.5','6','6.5','7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12'],
+    eu:   ['36','37','38','39','40','41','42','43','44','45','46','47','48','49']
+  };
+  var LABEL = {us_m:"US M", us_w:"US W", eu:"EU"};
+  var sys = document.getElementById('sys'), size = document.getElementById('size');
+  function fillSizes(){
+    var cur = size.value, list = SIZES[sys.value];
+    size.innerHTML = '<option value="">Pick a size</option>' + list.map(function(s){ return '<option value="'+s+'">'+s+'</option>'; }).join('');
+    if (list.indexOf(cur) >= 0) size.value = cur;
+  }
+  sys.addEventListener('change', fillSizes); fillSizes();
+  try { var savedSys = localStorage.getItem('talus_sys'); if (savedSys && SIZES[savedSys]) { sys.value = savedSys; fillSizes(); } } catch(e){}
+
+  var form = document.getElementById('f'), msg = document.getElementById('msg'), go = document.getElementById('go'), box = document.getElementById('signup');
+  var pform = document.getElementById('p'), pmsg = document.getElementById('pmsg'), pgo = document.getElementById('pgo'), pdone = document.getElementById('pdone');
+  var reserve = document.getElementById('reserve'), reserveBtn = document.getElementById('reserve-btn');
+  var lead = {};   // email + size from step 1, reused by step 2 and the reservation link
+  function say(el, t, cls){ el.textContent = t; el.className = 'msg ' + (cls||''); el.hidden = !t; }
+
+  function common(o){
+    o.submitted_at = new Date().toISOString();
+    o.source = location.hostname + location.pathname + location.search;
+    o.ua = navigator.userAgent.slice(0,120);
+    return o;
+  }
+  function payload(f, step){
+    var fd = new FormData(f), o = {step: step};
+    fd.forEach(function(v,k){ if (k !== '_gotcha' && v !== '') o[k] = v; });
+    if ('foot_length_mm' in o) o.foot_length_mm = Number(o.foot_length_mm);
+    if (step === 'profile') { o.email = lead.email; o.size_system = lead.size_system; o.size = lead.size; }
+    return common(o);
+  }
+
+  // Backend 1: a JSON form endpoint (real hosting).
+  function postEndpoint(data){
+    var url = ENDPOINT, body = data;
+    if (!url && WEB3FORMS_KEY) { url = 'https://api.web3forms.com/submit'; body = Object.assign({access_key: WEB3FORMS_KEY, subject: 'TALUS ' + data.step + ': ' + data.email, from_name: 'TALUS site'}, data); }
+    if (!url) return Promise.reject({code:'no_endpoint'});
+    return fetch(url, {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body: JSON.stringify(body)})
+      .then(function(r){ if (!r.ok) throw {code:'http', status:r.status}; return r.json().catch(function(){ return {}; }); });
+  }
+
+  // Backend 2: the Claude artifact database (preview only; works for signed-in editors of the artifact).
+  function postDb(data){
+    if (!(window.claude && typeof window.claude.use === 'function')) return Promise.reject({code:'no_db'});
+    return window.claude.use('db').then(function(db){
+      if (!db) throw {code:'no_db'};
+      return db.collection('signups').add(data).then(function(ref){ return {id: ref.id, via:'db'}; });
+    });
+  }
+  function send(data){ return (ENDPOINT || WEB3FORMS_KEY) ? postEndpoint(data) : postDb(data); }
+
+  // Build the reservation checkout link with email and size pre-filled.
+  function reserveLink(){
+    if (!RESERVE_URL) return '';
+    var sizeLabel = LABEL[lead.size_system] + ' ' + lead.size;
+    var q = [];
+    if (RESERVE_URL.indexOf('/cart/') > -1) {        // Shopify cart permalink: goes straight to checkout
+      q.push('checkout[email]=' + encodeURIComponent(lead.email));
+      q.push('attributes[TALUS size]=' + encodeURIComponent(sizeLabel));
+      q.push('note=' + encodeURIComponent('TALUS first-run reservation, size ' + sizeLabel));
+    } else {                                          // Stripe Payment Link
+      q.push('prefilled_email=' + encodeURIComponent(lead.email));
+      q.push('client_reference_id=' + encodeURIComponent(sizeLabel.replace(/[^A-Za-z0-9 ._-]/g,'')));
+    }
+    return RESERVE_URL + (RESERVE_URL.indexOf('?') > -1 ? '&' : '?') + q.join('&');
+  }
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    say(msg, '');
+    if (document.getElementById('_gotcha').value) { box.classList.add('done'); return; }
+    var email = form.email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { say(msg, 'Please enter a working email address.', 'err'); form.email.focus(); return; }
+    if (!size.value) { say(msg, 'Pick your shoe size so we can plan the run.', 'err'); size.focus(); return; }
+    var data = payload(form, 'signup');
+    lead = {email: email, size_system: sys.value, size: size.value};
+    go.disabled = true; go.textContent = 'Sending…';
+    try { localStorage.setItem('talus_sys', sys.value); } catch(e){}
+    send(data).then(function(){
+      box.classList.add('done');
+      if (RESERVE_URL) { reserveBtn.href = reserveLink(); reserve.hidden = false; }
+      if (typeof window.fbq === 'function') { try { window.fbq('track', 'Lead'); } catch(e){} }
+      location.hash = 'join';
+    }).catch(function(e){
+      go.disabled = false; go.textContent = 'Join the first run';
+      if (e && (e.code === 'no_endpoint' || e.code === 'no_db')) say(msg, 'Sign-up isn’t connected on this copy of the page yet. Please try again later.', 'err');
+      else say(msg, 'That didn’t go through. Check your connection and try again.', 'err');
+    });
+  });
+
+  reserveBtn.addEventListener('click', function(){
+    if (typeof window.fbq === 'function') { try { window.fbq('track', 'InitiateCheckout', {value: 10, currency: 'USD', content_name: 'TALUS reservation'}); } catch(e){} }
+  });
+
+  pform.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    say(pmsg, '');
+    var data = payload(pform, 'profile');
+    if (Object.keys(data).length <= 6) { say(pmsg, 'Nothing filled in yet.', 'err'); return; }   // step, email, size_system, size, submitted_at, source, ua
+    pgo.disabled = true; pgo.textContent = 'Saving…';
+    send(data).then(function(){
+      pform.hidden = true; pdone.hidden = false;
+    }).catch(function(){
+      pgo.disabled = false; pgo.textContent = 'Save';
+      say(pmsg, 'That didn’t save. Try again in a moment.', 'err');
+    });
+  });
+
+  document.getElementById('share').addEventListener('click', function(ev){
+    ev.preventDefault();
+    var url = location.href.split('#')[0], a = this;
+    function done(){ a.textContent = 'Link copied'; }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, function(){ window.prompt && prompt('Copy this link', url); });
+    else { a.textContent = url; }
+  });
+})();
+</script>
+
+</body>
+</html>
