@@ -238,16 +238,21 @@ footer .wm { font-size:20px; }
 
     <div class="thanks" id="thanks">
       <div>
-        <div class="eyebrow">You're on the list</div>
-        <h3>Thanks. We'll build your size.</h3>
-        <p>Two optional things, both quick. Either one helps us decide how many pairs to make.</p>
+        <div class="eyebrow" id="th-eyebrow">You're on the list</div>
+        <h3 id="th-head">Thanks. We'll build your size.</h3>
+        <p id="th-sub">Two optional things, both quick. Either one helps us decide how many pairs to make.</p>
       </div>
 
       <div class="steps">
         <div class="step" id="reserve" hidden>
           <h4>Hold a pair · $10</h4>
           <p>A $10 reservation holds a pair in your size on the first run at $170, and comes off the price when you buy. <b>Fully refundable at any time, no questions asked.</b> If there is no production sample by <span id="refund-date">30 June 2027</span>, every reservation is refunded automatically.</p>
+          <div class="row" id="reserve-size" hidden>
+            <div><label class="l" for="rsys">Sizing system</label><select id="rsys"><option value="us_m">US Men's</option><option value="us_w">US Women's</option><option value="eu">EU</option></select></div>
+            <div><label class="l" for="rsize">Size</label><select id="rsize"></select></div>
+          </div>
           <a class="btn" id="reserve-btn" href="#" rel="noopener">Reserve my size · $10</a>
+          <div class="msg" id="rmsg" hidden></div>
           <p class="fine">Checkout runs on wulfwool.com, our other brand, so your statement will show Wülf Wool. A reservation is not a purchase; we'll ask before charging anything else.</p>
         </div>
 
@@ -322,13 +327,20 @@ footer .wm { font-size:20px; }
     eu:   ['36','37','38','39','40','41','42','43','44','45','46','47','48','49']
   };
   var LABEL = {us_m:"US M", us_w:"US W", eu:"EU"};
-  var sys = document.getElementById('sys'), size = document.getElementById('size');
-  function fillSizes(){
-    var cur = size.value, list = SIZES[sys.value];
-    size.innerHTML = '<option value="">Pick a size</option>' + list.map(function(s){ return '<option value="'+s+'">'+s+'</option>'; }).join('');
-    if (list.indexOf(cur) >= 0) size.value = cur;
+  // Lead mode: visitors arriving from the Instagram Instant Form's thank-you button (?reserve=1) already gave email + size in-app,
+  // so skip the sign-up and show the $10 reservation with a size picker. Instant Forms can't pass lead data in the URL.
+  var LEAD = /[?&](reserve|from=lead)\b/.test(location.search);
+  function fillSel(sel, sysVal){
+    var cur = sel.value, list = SIZES[sysVal];
+    sel.innerHTML = '<option value="">Pick a size</option>' + list.map(function(s){ return '<option value="'+s+'">'+s+'</option>'; }).join('');
+    if (list.indexOf(cur) >= 0) sel.value = cur;
   }
+  var sys = document.getElementById('sys'), size = document.getElementById('size');
+  function fillSizes(){ fillSel(size, sys.value); }
   sys.addEventListener('change', fillSizes); fillSizes();
+  var rsys = document.getElementById('rsys'), rsize = document.getElementById('rsize'), rmsg = document.getElementById('rmsg');
+  rsys.addEventListener('change', function(){ fillSel(rsize, rsys.value); }); fillSel(rsize, rsys.value);
+  rsize.addEventListener('change', function(){ if (rsize.value) say(rmsg, ''); });
   try { var savedSys = localStorage.getItem('talus_sys'); if (savedSys && SIZES[savedSys]) { sys.value = savedSys; fillSizes(); } } catch(e){}
 
   var form = document.getElementById('f'), msg = document.getElementById('msg'), go = document.getElementById('go'), box = document.getElementById('signup');
@@ -336,6 +348,15 @@ footer .wm { font-size:20px; }
   var reserve = document.getElementById('reserve'), reserveBtn = document.getElementById('reserve-btn');
   var lead = {};   // email + size from step 1, reused by step 2 and the reservation link
   function say(el, t, cls){ el.textContent = t; el.className = 'msg ' + (cls||''); el.hidden = !t; }
+  if (LEAD) {
+    box.classList.add('done');
+    document.getElementById('th-eyebrow').textContent = "You're on the list";
+    document.getElementById('th-head').textContent = RESERVE_URL ? 'Hold your pair?' : 'Thanks. We\'ll build your size.';
+    document.getElementById('th-sub').textContent = RESERVE_URL ? 'Optional. Pick your size and a $10 refundable reservation keeps a pair for you on the first run at $170.' : 'We\'ll email you as the shoe comes together.';
+    document.getElementById('profile-step').hidden = true;
+    document.getElementById('reserve-size').hidden = !RESERVE_URL;
+    reserve.hidden = !RESERVE_URL;
+  }
 
   function common(o){
     o.submitted_at = new Date().toISOString();
@@ -376,7 +397,7 @@ footer .wm { font-size:20px; }
     var sizeLabel = LABEL[lead.size_system] + ' ' + lead.size;
     var q = [];
     if (RESERVE_URL.indexOf('/cart/') > -1) {        // Shopify cart permalink: goes straight to checkout
-      q.push('checkout[email]=' + encodeURIComponent(lead.email));
+      if (lead.email) q.push('checkout[email]=' + encodeURIComponent(lead.email));
       q.push('attributes[TALUS size]=' + encodeURIComponent(sizeLabel));
       q.push('note=' + encodeURIComponent('TALUS first-run reservation, size ' + sizeLabel));
     } else {                                          // Stripe Payment Link
@@ -409,7 +430,12 @@ footer .wm { font-size:20px; }
     });
   });
 
-  reserveBtn.addEventListener('click', function(){
+  reserveBtn.addEventListener('click', function(ev){
+    if (LEAD) {
+      if (!rsize.value) { ev.preventDefault(); say(rmsg, 'Pick your size first so the reservation is for the right pair.', 'err'); rsize.focus(); return; }
+      lead = {email: '', size_system: rsys.value, size: rsize.value};
+      reserveBtn.href = reserveLink();
+    }
     if (typeof window.fbq === 'function') { try { window.fbq('track', 'InitiateCheckout', {value: 10, currency: 'USD', content_name: 'TALUS reservation'}); } catch(e){} }
   });
 
